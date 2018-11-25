@@ -8,8 +8,10 @@ class TodoList extends Component {
   render() {
     return (
       <div className="todoList">
-        {this.props.items.map((title) =>
-          <TodoItem key={title} title={title} deleteItem={this.props.deleteItem} />
+        {Object.keys(this.props.items).map((key) => {
+          let title = this.props.items[key];
+          return <TodoItem key={key} id={key} title={title} deleteItem={this.props.deleteItem}/>
+          }
         )}
         <NewItemForm addItem={this.props.addItem}/>
       </div>
@@ -18,7 +20,7 @@ class TodoList extends Component {
 }
 
 TodoList.propTypes = {
-  items: PropTypes.array,
+  items: PropTypes.object,
   addItem: PropTypes.func,
   deleteItem: PropTypes.func
 };

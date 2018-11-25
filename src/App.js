@@ -4,21 +4,20 @@ import TodoList from "./TodoList";
 
 class App extends Component {
   state = {
-    items: [
-      'hola',
-      'mundo'
-    ]
+    items: {}
   };
 
   addItem = (newItemName) => {
-    var newItems = this.state.items.slice();
-    newItems.push(newItemName);
+    let newItems = {...this.state.items}
+    newItems[`item${Date.now()}`] = newItemName;
     this.setState({ items: newItems });
   };
 
-  deleteItem = (title) => {
-    var newItems = this.state.items.filter((value) => (value !== title));
-    console.log(newItems);
+  deleteItem = (key) => {
+    var newItems = this.state.items;
+
+    delete newItems[key];
+
     this.setState({ items: newItems });
   };
 

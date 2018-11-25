@@ -4,8 +4,7 @@ import './TodoItem.scss';
 
 class TodoItem extends Component {
   deleteItem = (e) => {
-    console.log(this.props.title);
-    this.props.deleteItem(this.props.title);
+    this.props.deleteItem(this.props.id);
   };
 
   render() {
