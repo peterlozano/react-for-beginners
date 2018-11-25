@@ -33,6 +33,7 @@ class App extends Component {
   setCurrentList = (key) => {
     console.log("curent list:" + key);
     this.setState({ currentList: key });
+    this.props.history.push(`/list/${key}`);
     console.log(this.state);
   };
 
@@ -50,6 +51,19 @@ class App extends Component {
     delete newItems[key];
 
     this.setState({ items: newItems });
+  };
+
+  componentDidMount = () => {
+    if (this.props.match.params.listId) {
+      let urlKey = this.props.match.params.listId;
+
+      if (this.state.lists[urlKey]) {
+        this.setState({currentList: this.props.match.params.listId});
+      }
+      else {
+        this.props.history.push(`/`);
+      }
+    }
   };
 
   render() {
