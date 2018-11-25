@@ -3,27 +3,27 @@ import PropTypes from 'prop-types';
 import './NewItemForm.scss';
 
 class NewItemForm extends Component {
-    newItemName = React.createRef();
+  newItemName = React.createRef();
 
-    addItem = (e) => {
-        e.preventDefault();
-        this.props.addItem(this.newItemName.current.value);
-        this.newItemName.current.value = '';
-    };
+  addItem = (e) => {
+    e.preventDefault();
+    this.props.addItem(this.newItemName.current.value);
+    this.newItemName.current.value = '';
+  };
 
-    render() {
-        return (
-            <div className="newItemForm">
-                <form onSubmit={this.addItem}>
-                    <input type="text" ref={this.newItemName} className="newItemInput" name="newItemTitle"/>
-                </form>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div className="newItemForm">
+        <form onSubmit={this.addItem}>
+          <input type="text" ref={this.newItemName} className="newItemInput" name="newItemTitle"/>
+        </form>
+      </div>
+    );
+  }
 }
 
 NewItemForm.propTypes = {
-    addItem: PropTypes.func
+  addItem: PropTypes.func
 };
 
 export default NewItemForm;
