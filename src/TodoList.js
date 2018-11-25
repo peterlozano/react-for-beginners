@@ -11,9 +11,12 @@ class TodoList extends Component {
     return (
       <div className="todoList">
         <div className="listName">List Name: {listName}</div>
-        {Object.keys(items).map((key) => {
-          return <TodoItem key={key} id={key} title={items[key]} deleteItem={this.props.deleteItem} listId={this.props.listId} />
-        })}
+        <div className="listItems">
+          {Object.keys(items).length ?
+            Object.keys(items).map((key) => {
+              return <TodoItem key={key} id={key} title={items[key]} deleteItem={this.props.deleteItem} listId={this.props.listId} updateItem={this.props.updateItem} />
+            }) : <div>This list is empty.</div>}
+        </div>
         <NewItemForm addItem={this.props.addItem} listId={this.props.listId}/>
       </div>
     );
@@ -27,7 +30,8 @@ TodoList.propTypes = {
     listName: PropTypes.string
   }),
   addItem: PropTypes.func,
-  deleteItem: PropTypes.func
+  deleteItem: PropTypes.func,
+  updateItem: PropTypes.func
 };
 
 export default TodoList;

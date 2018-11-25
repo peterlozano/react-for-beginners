@@ -1,3 +1,5 @@
+@import "Global";
+
 .todoItem {
   background-color: #a2a2a0;
   padding: 15px;
@@ -7,5 +9,9 @@
     padding: 2px;
     margin: 25px 2px 25px 2px;
     cursor: pointer;
+  }
+  input {
+    @include text-field;
+    width: 50%;
   }
 }

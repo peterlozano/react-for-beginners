@@ -1,0 +1,11 @@
+@import "Global";
+
+.listHandler {
+  .editList {
+    float: right;
+  }
+  input {
+    @include text-field;
+    width: 70%;
+  }
+}

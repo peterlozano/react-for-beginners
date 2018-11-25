@@ -4,4 +4,13 @@
   background-color: #7fa291;
   display: flex;
   flex-direction: column;
+  .listName {
+    background-color: #72cd59;
+    padding: 5px;
+  }
+  .listItems {
+    padding: 5px;
+    background-color: #c7cd8f;
+    margin: 10px;
+  }
 }
