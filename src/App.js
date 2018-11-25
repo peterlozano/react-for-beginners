@@ -34,7 +34,6 @@ class App extends Component {
     console.log("curent list:" + key);
     this.setState({ currentList: key });
     console.log(this.state);
-    this.forceUpdate();
   };
 
   addItem = (listId, newItemName) => {

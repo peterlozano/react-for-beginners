@@ -1,3 +1,8 @@
+@import "Global";
+
 .newListForm {
   margin: 25px;
+  input {
+    @include text-field;
+  }
 }
