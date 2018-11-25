@@ -4,7 +4,7 @@ import './TodoItem.scss';
 
 class TodoItem extends Component {
   deleteItem = (e) => {
-    this.props.deleteItem(this.props.id);
+    this.props.deleteItem(this.props.listId, this.props.id);
   };
 
   render() {
@@ -19,7 +19,8 @@ class TodoItem extends Component {
 
 TodoItem.propTypes = {
   title: PropTypes.string,
-  deleteItem: PropTypes.func
+  deleteItem: PropTypes.func,
+  listId: PropTypes.string
 };
 
 export default TodoItem;

@@ -6,21 +6,26 @@ import NewItemForm from "./NewItemForm";
 
 class TodoList extends Component {
   render() {
+    let { listName, items } = this.props.list;
+
     return (
       <div className="todoList">
-        {Object.keys(this.props.items).map((key) => {
-          let title = this.props.items[key];
-          return <TodoItem key={key} id={key} title={title} deleteItem={this.props.deleteItem}/>
-          }
-        )}
-        <NewItemForm addItem={this.props.addItem}/>
+        <div className="listName">List Name: {listName}</div>
+        {Object.keys(items).map((key) => {
+          return <TodoItem key={key} id={key} title={items[key]} deleteItem={this.props.deleteItem} listId={this.props.listId} />
+        })}
+        <NewItemForm addItem={this.props.addItem} listId={this.props.listId}/>
       </div>
     );
   }
 }
 
 TodoList.propTypes = {
-  items: PropTypes.object,
+  listId: PropTypes.string,
+  list: PropTypes.shape({
+    items: PropTypes.object,
+    listName: PropTypes.string
+  }),
   addItem: PropTypes.func,
   deleteItem: PropTypes.func
 };

@@ -1,20 +1,52 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import TodoList from "./TodoList";
+import ListsList from './ListsList'
 
 class App extends Component {
   state = {
-    items: {}
+    lists: {
+      list1: {
+        listName: 'default',
+        items: {
+          item1: "hola",
+          item2: "mundo"
+        }
+      }
+    },
+    currentList: 'list1'
   };
 
-  addItem = (newItemName) => {
-    let newItems = {...this.state.items}
-    newItems[`item${Date.now()}`] = newItemName;
-    this.setState({ items: newItems });
+  addList = (newListName) => {
+    console.log("New List: " + newListName);
+    let newLists = {...this.state.lists}
+    newLists[`list${Date.now()}`] = {
+      items: {
+        'item1': 'default item'
+      },
+      listName: newListName
+    };
+
+    this.setState({ lists: newLists });
   };
 
-  deleteItem = (key) => {
-    var newItems = this.state.items;
+  setCurrentList = (key) => {
+    console.log("curent list:" + key);
+    this.setState({ currentList: key });
+    console.log(this.state);
+    this.forceUpdate();
+  };
+
+  addItem = (listId, newItemName) => {
+    console.log("add item");
+    console.log(listId, newItemName);
+    let lists = {...this.state.lists};
+    lists[listId].items[`item${Date.now()}`] = newItemName;
+    this.setState({lists})
+  };
+
+  deleteItem = (listId, key) => {
+    var newItems = this.state.lists[listId].items;
 
     delete newItems[key];
 
@@ -24,7 +56,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TodoList items={this.state.items} addItem={this.addItem} deleteItem={this.deleteItem}/>
+        <ListsList lists={this.state.lists} addList={this.addList} setCurrentList={this.setCurrentList} activeList={this.state.currentList} />
+        <TodoList list={this.state.lists[this.state.currentList]} addItem={this.addItem} deleteItem={this.deleteItem} listId={this.state.currentList} />
       </div>
     );
   }

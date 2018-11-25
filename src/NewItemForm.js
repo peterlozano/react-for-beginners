@@ -7,7 +7,7 @@ class NewItemForm extends Component {
 
   addItem = (e) => {
     e.preventDefault();
-    this.props.addItem(this.newItemName.current.value);
+    this.props.addItem(this.props.listId, this.newItemName.current.value);
     this.newItemName.current.value = '';
   };
 
@@ -15,6 +15,7 @@ class NewItemForm extends Component {
     return (
       <div className="newItemForm">
         <form onSubmit={this.addItem}>
+          <label>Add Item:</label>
           <input type="text" ref={this.newItemName} className="newItemInput" name="newItemTitle"/>
         </form>
       </div>
@@ -23,7 +24,8 @@ class NewItemForm extends Component {
 }
 
 NewItemForm.propTypes = {
-  addItem: PropTypes.func
+  addItem: PropTypes.func,
+  listId: PropTypes.string
 };
 
 export default NewItemForm;
