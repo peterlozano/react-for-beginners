@@ -28,6 +28,8 @@ class App extends Component {
     };
 
     this.setState({ lists: newLists });
+
+    this.updateStorage();
   };
 
   setCurrentList = (key) => {
@@ -42,7 +44,9 @@ class App extends Component {
     console.log(listId, newItemName);
     let lists = {...this.state.lists};
     lists[listId].items[`item${Date.now()}`] = newItemName;
-    this.setState({lists})
+    this.setState({lists});
+
+    this.updateStorage();
   };
 
   deleteItem = (listId, key) => {
@@ -51,9 +55,21 @@ class App extends Component {
     delete newItems[key];
 
     this.setState({ items: newItems });
+
+    this.updateStorage();
   };
 
+  updateStorage = () => {
+    localStorage.setItem('todoAppState', JSON.stringify(this.state));
+  }
+
   componentDidMount = () => {
+    const localStorageRef = localStorage.getItem('todoAppState');
+
+    if (localStorageRef) {
+      this.setState(JSON.parse(localStorageRef));
+    }
+
     if (this.props.match.params.listId) {
       let urlKey = this.props.match.params.listId;
 
