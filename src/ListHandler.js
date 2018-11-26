@@ -46,18 +46,20 @@ class ListHandler extends Component {
             </form>
           </div>
         ) : (
-          <div
-            onClick={this.setCurrentList}
-            className={"listName" + (this.props.activeList === this.props.listId ? ' activeList' : '')}
+          <React.Fragment>
+            <div
+              onClick={this.setCurrentList}
+              className={"listName" + (this.props.activeList === this.props.listId ? ' activeList' : '')}
             >
-            {this.props.list.listName}&nbsp;
+              {this.props.list.listName}
+            </div>
             <b onClick={this.startEdit} className="editList">(Edit)</b>
             {this.props.listId !== 'list1' ? (
               <span>
               <b onClick={this.deleteItem} className="deleteIcon">X</b>
               </span>
             ) : null}
-          </div>
+          </React.Fragment>
         )}
       </div>
     )
