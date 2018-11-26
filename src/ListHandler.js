@@ -15,14 +15,25 @@ class ListHandler extends Component {
   };
 
   startEdit = (e) => {
-    this.setState({editing: true});
+    if (this.props.listId !== 'list1') {
+      this.setState({editing: true});
+    }
   }
 
   submitEditForm = (e) => {
     e.preventDefault();
-    console.log("saving list");
     this.setState({editing: false});
-    this.props.updateListName(this.props.listId, this.myValue.current.value);
+    if (this.myValue.current.value !== '') {
+      console.log("saving list");
+      this.props.updateListName(this.props.listId, this.myValue.current.value);
+    }
+  }
+
+  deleteItem = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    this.props.setCurrentList('list1');
+    this.props.deleteList(this.props.listId);
   }
 
   render () {
@@ -41,6 +52,11 @@ class ListHandler extends Component {
             >
             {this.props.list.listName}&nbsp;
             <b onClick={this.startEdit} className="editList">(Edit)</b>
+            {this.props.listId !== 'list1' ? (
+              <span>
+              <b onClick={this.deleteItem} className="deleteIcon">X</b>
+              </span>
+            ) : null}
           </div>
         )}
       </div>
@@ -53,7 +69,8 @@ ListHandler.propTypes = {
   activeList: PropTypes.string,
   list: PropTypes.object,
   listId: PropTypes.string,
-  updateListName: PropTypes.func
+  updateListName: PropTypes.func,
+  deleteList: PropTypes.func
 }
 
 export default ListHandler

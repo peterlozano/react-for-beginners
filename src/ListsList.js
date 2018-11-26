@@ -16,7 +16,9 @@ class ListsList extends Component {
             list={this.props.lists[key]}
             activeList={this.props.activeList}
             setCurrentList={this.props.setCurrentList}
-            updateListName={this.props.updateListName} />
+            updateListName={this.props.updateListName}
+            deleteList={this.props.deleteList}
+          />
         })}
         <NewList addList={this.props.addList}/>
       </div>
@@ -29,7 +31,8 @@ ListsList.propTypes = {
   addList: PropTypes.func,
   setCurrentList: PropTypes.func,
   activeList: PropTypes.string,
-  updateListName: PropTypes.func
+  updateListName: PropTypes.func,
+  deleteList: PropTypes.func
 }
 
 export default ListsList

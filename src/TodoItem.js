@@ -36,7 +36,7 @@ class TodoItem extends Component {
         ) : (
           <div>
             <b onClick={this.startEdit}>{this.props.title}</b>
-            <b onClick={this.deleteItem} className="deleteItem">X</b>
+            <b onClick={this.deleteItem} className="deleteIcon">X</b>
           </div>
         )}
       </div>

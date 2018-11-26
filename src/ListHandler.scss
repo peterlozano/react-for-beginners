@@ -1,9 +1,16 @@
 @import "Global";
 
 .listHandler {
+  display: flex;
+  flex-direction: row;
+
   .editList {
-    float: right;
+    flex: 1;
   }
+  .deleteIcon {
+    flex: 1;
+  }
+
   input {
     @include text-field;
     width: 70%;

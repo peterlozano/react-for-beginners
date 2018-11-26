@@ -9,10 +9,11 @@ class App extends Component {
     lists: {
       list1: {
         listName: 'default',
-        items: {
-          item1: "hola",
-          item2: "mundo"
-        }
+        items: {}
+      },
+      deleted: {
+        listName: 'Deleted',
+        items: {}
       }
     },
     currentList: 'list1'
@@ -48,6 +49,23 @@ class App extends Component {
     this.updateStorage();
   }
 
+  deleteList = (listId, key) => {
+    let { lists } = this.state;
+
+    // Move items from the list to the deleted list
+    lists['deleted'].items = Object.assign(lists['deleted'].items || {}, {...lists[listId].items});
+
+    lists[listId] = null;
+
+    if (lists === undefined) {
+      lists = {}
+    }
+
+    this.setState({ lists });
+
+    this.updateStorage();
+  };
+
   addItem = (listId, newItemName) => {
     console.log("add item");
     console.log(listId, newItemName);
@@ -65,6 +83,14 @@ class App extends Component {
 
   deleteItem = (listId, key) => {
     var { lists } = this.state;
+
+    if (listId !== 'deleted') {
+      if (!lists['deleted'].items) {
+        lists['deleted'].items = {}
+      }
+
+      lists['deleted'].items[key] = {...lists[listId].items[key]};
+    }
 
     lists[listId].items[key] = null;
 
@@ -120,7 +146,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ListsList lists={this.state.lists} addList={this.addList} setCurrentList={this.setCurrentList} activeList={this.state.currentList} updateListName={this.updateListName}/>
+        <ListsList lists={this.state.lists} addList={this.addList} setCurrentList={this.setCurrentList} activeList={this.state.currentList} updateListName={this.updateListName} deleteList={this.deleteList}/>
         <TodoList list={this.state.lists[this.state.currentList]} addItem={this.addItem} deleteItem={this.deleteItem} listId={this.state.currentList}  updateItem={this.updateItem}/>
       </div>
     );
