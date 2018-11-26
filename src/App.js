@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.scss';
 import TodoList from "./TodoList";
 import ListsList from './ListsList'
+import base from './base';
 
 class App extends Component {
   state = {
@@ -51,6 +52,11 @@ class App extends Component {
     console.log("add item");
     console.log(listId, newItemName);
     let lists = {...this.state.lists};
+
+    if (!lists[listId].items) {
+      lists[listId].items = {};
+    }
+
     lists[listId].items[`item${Date.now()}`] = newItemName;
     this.setState({lists});
 
@@ -58,11 +64,15 @@ class App extends Component {
   };
 
   deleteItem = (listId, key) => {
-    var newItems = this.state.lists[listId].items;
+    var { lists } = this.state;
 
-    delete newItems[key];
+    lists[listId].items[key] = null;
 
-    this.setState({ items: newItems });
+    if (lists[listId].items === undefined) {
+      lists[listId].items = {}
+    }
+
+    this.setState({ lists });
 
     this.updateStorage();
   };
@@ -78,15 +88,17 @@ class App extends Component {
   }
 
   updateStorage = () => {
-    localStorage.setItem('todoAppState', JSON.stringify(this.state));
+    //localStorage.setItem('todoAppState', JSON.stringify(this.state));
   }
 
   componentDidMount = () => {
+    /*
     const localStorageRef = localStorage.getItem('todoAppState');
 
     if (localStorageRef) {
       this.setState(JSON.parse(localStorageRef));
     }
+    */
 
     if (this.props.match.params.listId) {
       let urlKey = this.props.match.params.listId;
@@ -98,6 +110,11 @@ class App extends Component {
         this.props.history.push(`/`);
       }
     }
+
+    this.ref = base.syncState('lists', {
+      context: this,
+      state: 'lists',
+    })
   };
 
   render() {

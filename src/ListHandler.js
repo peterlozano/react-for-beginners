@@ -4,7 +4,7 @@ import './ListHandler.scss';
 
 class ListHandler extends Component {
   state = {
-    editing: true
+    editing: false
   };
 
   myValue = React.createRef();

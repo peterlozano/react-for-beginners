@@ -12,9 +12,11 @@ class TodoList extends Component {
       <div className="todoList">
         <div className="listName">List Name: {listName}</div>
         <div className="listItems">
-          {Object.keys(items).length ?
+          {(items && Object.keys(items).length) ?
             Object.keys(items).map((key) => {
-              return <TodoItem key={key} id={key} title={items[key]} deleteItem={this.props.deleteItem} listId={this.props.listId} updateItem={this.props.updateItem} />
+              return items[key] ?
+                 <TodoItem key={key} id={key} title={items[key]} deleteItem={this.props.deleteItem} listId={this.props.listId} updateItem={this.props.updateItem} />
+              : null;
             }) : <div>This list is empty.</div>}
         </div>
         <NewItemForm addItem={this.props.addItem} listId={this.props.listId}/>
