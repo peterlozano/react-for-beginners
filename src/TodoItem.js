@@ -24,6 +24,10 @@ class TodoItem extends Component {
     this.setState({editing: true});
   }
 
+  moveToDone = (e) => {
+    this.props.moveItemToList(this.props.listId, this.props.id, 'done');
+  }
+
   render() {
     return (
       <div className="todoItem">
@@ -35,6 +39,7 @@ class TodoItem extends Component {
           </div>
         ) : (
           <div>
+            {this.props.listId !== 'done' ? (<b onClick={this.moveToDone} className="doneIcon">DONE</b>) : null}
             <b onClick={this.startEdit}>{this.props.title}</b>
             <b onClick={this.deleteItem} className="deleteIcon">X</b>
           </div>
@@ -48,7 +53,8 @@ TodoItem.propTypes = {
   title: PropTypes.string,
   deleteItem: PropTypes.func,
   listId: PropTypes.string,
-  updateItem: PropTypes.func
+  updateItem: PropTypes.func,
+  moveItemToList: PropTypes.func
 };
 
 export default TodoItem;

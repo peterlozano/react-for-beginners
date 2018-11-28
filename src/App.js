@@ -65,7 +65,7 @@ class App extends Component {
     this.setState({ lists });
   };
 
-  addItem = (listId, newItemName) => {
+  addItem = (listId, newItemName, key = null) => {
     console.log("add item");
     console.log(listId, newItemName);
     let lists = {...this.state.lists};
@@ -74,8 +74,11 @@ class App extends Component {
       lists[listId].items = {};
     }
 
-    lists[listId].items[`item${Date.now()}`] = newItemName;
-    this.setState({lists});
+    let newKey = key ? key :  `item${Date.now()}`
+
+    lists[listId].items[newKey] = newItemName;
+
+    this.setState({ lists });
   };
 
   deleteItem = (listId, key) => {
@@ -99,11 +102,20 @@ class App extends Component {
   };
 
   updateItem = (listId, key, value) => {
-    var newItems = this.state.lists[listId].items;
+    var { lists } = this.state;
 
-    newItems[key] = value;
+    lists[listId].items[key] = value;
 
-    this.setState({ items: newItems });
+    this.setState({ lists });
+  }
+
+  moveItemToList = (fromListId, key, toListId) => {
+    var { lists } = this.state;
+
+    let value = lists[fromListId].items[key];
+
+    this.addItem(toListId, value, key);
+    this.deleteItem(fromListId, key);
   }
 
   componentDidMount = () => {
@@ -128,7 +140,7 @@ class App extends Component {
     return (
       <div className="App">
         <ListsList lists={this.state.lists} addList={this.addList} setCurrentList={this.setCurrentList} activeList={this.state.currentList} updateListName={this.updateListName} deleteList={this.deleteList}/>
-        <TodoList list={this.state.lists[this.state.currentList]} addItem={this.addItem} deleteItem={this.deleteItem} listId={this.state.currentList}  updateItem={this.updateItem}/>
+        <TodoList list={this.state.lists[this.state.currentList]} addItem={this.addItem} deleteItem={this.deleteItem} listId={this.state.currentList}  updateItem={this.updateItem} moveItemToList={this.moveItemToList}/>
       </div>
     );
   }

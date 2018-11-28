@@ -32,3 +32,11 @@
   margin: 0 2px;
   @include rounded()
 }
+
+.doneIcon {
+  background-color: rgba(114, 164, 172, 0.95);
+  padding: 5px;
+  cursor: pointer;
+  margin: 0 5px 0 0px;
+  @include rounded()
+}
