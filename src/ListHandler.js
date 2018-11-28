@@ -38,7 +38,7 @@ class ListHandler extends Component {
 
   render () {
     return (
-      <div className="listHandler">
+      <div className={"listHandler" + (this.props.activeList === this.props.listId ? ' activeList' : '')} onClick={this.setCurrentList}>
         {this.state.editing ? (
           <div className="listEditForm">
             <form onSubmit={this.submitEditForm}>
@@ -47,10 +47,7 @@ class ListHandler extends Component {
           </div>
         ) : (
           <React.Fragment>
-            <div
-              onClick={this.setCurrentList}
-              className={"listName" + (this.props.activeList === this.props.listId ? ' activeList' : '')}
-            >
+            <div className="listName">
               {this.props.list.listName}
             </div>
             <b onClick={this.startEdit} className="editList">(Edit)</b>

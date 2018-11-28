@@ -7,14 +7,14 @@ import base from './base';
 class App extends Component {
   state = {
     lists: {
+      deleted: {
+        listName: 'Deleted',
+        items: {}
+      },
       list1: {
         listName: 'default',
         items: {}
       },
-      deleted: {
-        listName: 'Deleted',
-        items: {}
-      }
     },
     currentList: 'list1'
   };
@@ -30,8 +30,6 @@ class App extends Component {
     };
 
     this.setState({ lists: newLists });
-
-    this.updateStorage();
   };
 
   setCurrentList = (key) => {
@@ -46,7 +44,6 @@ class App extends Component {
     var newState = {...this.state};
     newState.lists[key].listName = value;
     this.setState(newState);
-    this.updateStorage();
   }
 
   deleteList = (listId, key) => {
@@ -62,8 +59,6 @@ class App extends Component {
     }
 
     this.setState({ lists });
-
-    this.updateStorage();
   };
 
   addItem = (listId, newItemName) => {
@@ -77,8 +72,6 @@ class App extends Component {
 
     lists[listId].items[`item${Date.now()}`] = newItemName;
     this.setState({lists});
-
-    this.updateStorage();
   };
 
   deleteItem = (listId, key) => {
@@ -99,8 +92,6 @@ class App extends Component {
     }
 
     this.setState({ lists });
-
-    this.updateStorage();
   };
 
   updateItem = (listId, key, value) => {
@@ -109,23 +100,9 @@ class App extends Component {
     newItems[key] = value;
 
     this.setState({ items: newItems });
-
-    this.updateStorage();
-  }
-
-  updateStorage = () => {
-    //localStorage.setItem('todoAppState', JSON.stringify(this.state));
   }
 
   componentDidMount = () => {
-    /*
-    const localStorageRef = localStorage.getItem('todoAppState');
-
-    if (localStorageRef) {
-      this.setState(JSON.parse(localStorageRef));
-    }
-    */
-
     if (this.props.match.params.listId) {
       let urlKey = this.props.match.params.listId;
 
