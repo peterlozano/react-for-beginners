@@ -15,7 +15,7 @@ class ListHandler extends Component {
   };
 
   startEdit = (e) => {
-    if (this.props.listId !== 'list1') {
+    if (this.props.listId !== 'default') {
       this.setState({editing: true});
     }
   }
@@ -32,7 +32,7 @@ class ListHandler extends Component {
   deleteItem = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    this.props.setCurrentList('list1');
+    this.props.setCurrentList('default');
     this.props.deleteList(this.props.listId);
   }
 
@@ -51,7 +51,7 @@ class ListHandler extends Component {
               {this.props.list.listName}
             </div>
             <b onClick={this.startEdit} className="editList">(Edit)</b>
-            {this.props.listId !== 'list1' ? (
+            {this.props.listId !== 'default' && this.props.listId !== 'done' && this.props.listId !== 'deleted'? (
               <span>
               <b onClick={this.deleteItem} className="deleteIcon">X</b>
               </span>

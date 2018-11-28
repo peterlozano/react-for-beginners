@@ -11,12 +11,16 @@ class App extends Component {
         listName: 'Deleted',
         items: {}
       },
-      list1: {
+      default: {
         listName: 'default',
         items: {}
       },
+      done: {
+        listName: 'DONE',
+        items: {}
+      }
     },
-    currentList: 'list1'
+    currentList: 'default'
   };
 
   addList = (newListName) => {
